@@ -1,0 +1,12 @@
+services:
+
+  redis:                                                          # Redis container name
+    image: redis:7.0.5                                            # Uses the defined redis image
+    
+  python-web:                                                     # python container
+    image: python-web-app:v1                                      # The image that you built before
+    hostname: my-cool-compose-docker-container                    # An optional hostname
+    ports:
+      - "8080:8080"                                               # Same as -p 8080:8080
+    environment:
+      - REDIS_HOST=redis                                          # Note that "redis" comes from services.redis
