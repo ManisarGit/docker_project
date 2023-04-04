@@ -1,0 +1,79 @@
+# What technologies are used in this application?
+This application uses python3 and redis to generate a website that count the amount of times
+that a visitor has visited it.
+
+
+Redis details:
+ - Redis is installed in ubuntu with apt install redis
+ - Redis runs on the default port 6379
+ - If redis is not present before booting up the web application, the webapp will crash.
+
+Python details:
+ - Python 3.8 is used
+ - app.py contains the source code
+ - requirements.txt contains the app's dependencies.
+ - pip install -r requirements.txt installs the dependencies
+ - The REDIS_HOST env variable defines what redis host the app should use
+ - The app runs on port 8080.
+
+ All the configuration mentioned above is implemented in the start.sh script.
+ You can read it to further understand technical details.
+
+
+# How to bring up the services?
+
+You can bring up the application by running the `start.sh` script as follows:
+
+```
+$ bash start.sh
+
+# Expected output
+Ensuring redis ...
+Ensuring pip ...
+Ensuring python dependencies ...
+Starting app on port 8080 ...
+Waiting for the server to boot up ...
+Server is running on port 8080
+```
+
+
+NOTE: The application MUST run on port 8080 for this URL to work.
+
+# How to test the application?
+
+You can send a http request to localhost:8080 from your workspace
+
+```
+$ curl -s localhost:8080|grep -i you
+<h1>You've visited this website <span class="white">1 </span> times!</h1>
+```
+
+Call it a couple more times, and see the counter increasing!
+
+```
+$ curl -s localhost:8080|grep -i you
+<h1>You've visited this website <span class="white">2 </span> times!</h1>
+
+$ curl -s localhost:8080|grep -i you
+<h1>You've visited this website <span class="white">3 </span> times!</h1>
+```
+
+# How to stop the services?
+You can bring down the application by running the `stop.sh` script as follows:
+
+```
+$ bash stop.sh
+
+# Expected output
+All services were successfully stopped.
+```
+
+Try calling the application:
+```
+$ curl localhost:8080
+curl: (7) Failed to connect to localhost port 8080: Connection refused
+```
+
+# Note
+
+Everytime you stop and start the application, the counter will restart!
